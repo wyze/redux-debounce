@@ -1,6 +1,6 @@
 {
   "name": "redux-debounce",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A middleware for Redux to debounce actions.",
   "license": "MIT",
   "repository": "wyze/redux-debounce",
