@@ -1,0 +1,63 @@
+{
+  "name": "redux-debounce",
+  "version": "0.0.0",
+  "description": "A middleware for Redux to debounce actions.",
+  "license": "MIT",
+  "repository": "wyze/redux-debounce",
+  "author": {
+    "name": "Neil Kistner",
+    "email": "neil.kistner@gmail.com",
+    "url": "neilkistner.com"
+  },
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "coverage": "nyc report -r text-lcov | codecov",
+    "prebuild": "rimraf lib && eslint src",
+    "pretest": "npm run build",
+    "test": "nyc ava",
+    "test:watch": "watch 'npm test' src test -d"
+  },
+  "files": [
+    "lib",
+    "license",
+    "package.json",
+    "readme.md"
+  ],
+  "keywords": [
+    "redux",
+    "debounce",
+    "middleware",
+    "redux-middleware",
+    "fsa",
+    "flux"
+  ],
+  "dependencies": {
+    "flux-standard-action": "^0.6.0",
+    "lodash.debounce": "^3.1.1",
+    "lodash.mapvalues": "^3.0.1"
+  },
+  "devDependencies": {
+    "ava": "^0.7.0",
+    "babel": "^5.8.34",
+    "babel-eslint": "^4.1.6",
+    "codecov.io": "^0.1.6",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.0.0",
+    "nyc": "^4.0.1",
+    "rimraf": "^2.4.4",
+    "sinon": "^1.17.2",
+    "watch": "^0.16.0"
+  },
+  "config": {
+    "nyc": {
+      "require": [
+        "babel/polyfill",
+        "babel/register"
+      ]
+    }
+  }
+}

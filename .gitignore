@@ -1,0 +1,9 @@
+# Directories
+.nyc_output
+coverage
+lib
+node_modules
+
+# Files
+.DS_Store
+npm-debug.log
