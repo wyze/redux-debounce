@@ -31,7 +31,8 @@ const logger = createLogger();
 const createMiddleware = applyMiddleware(thunk, debouncer, promise, thunk);
 const store = createMiddleware(createStore)(reducer);
 
-// Action setup
+// Action setup - ensure your action object is a FSA:
+// https://github.com/acdlite/flux-standard-action
 const debounceAction = () => ({
   meta: {
     debounce: 'simple'
