@@ -4,7 +4,7 @@
 [![npm][npm-image]][npm-url]
 [![Codecov.io][codecov-image]][codecov-url]
 
-> A middleware for Redux to debounce actions.
+> FSA-compliant middleware for Redux to debounce actions.
 
 ## Installation
 
@@ -16,29 +16,27 @@ $ npm install --save redux-debounce
 
 ```javascript
 // Store setup
-import { applyMiddleware, createStore } from 'redux';
-import createDebounce from 'redux-debounce';
-import createLogger from 'redux-logger';
-import promise from 'redux-promise';
-import thunk from 'redux-thunk';
+import { applyMiddleware, createStore } from 'redux'
+import createDebounce from 'redux-debounce'
+import createLogger from 'redux-logger'
+import promise from 'redux-promise'
+import thunk from 'redux-thunk'
 
 const config = {
   simple: 300
-};
+}
 
-const debouncer = createDebounce(config);
-const logger = createLogger();
-const createMiddleware = applyMiddleware(thunk, debouncer, promise, thunk);
-const store = createMiddleware(createStore)(reducer);
+const debouncer = createDebounce(config)
+const logger = createLogger()
+const createMiddleware = applyMiddleware(thunk, debouncer, promise, thunk)
+const store = createMiddleware(createStore)(reducer)
 
-// Action setup - ensure your action object is a FSA:
-// https://github.com/acdlite/flux-standard-action
 const debounceAction = () => ({
   meta: {
-    debounce: 'simple'
+    debounce: 'simple',
   },
-  type: 'TEST'
-});
+  type: 'TEST',
+})
 ```
 
 Debounce middleware **should be** placed near the top of the chain.
@@ -81,7 +79,7 @@ See [lodash][lodash-url] for the rest of the supported options.
 
 ## License
 
-Copyright © 2015 [Neil Kistner](//github.com/wyze)
+Copyright © 2015-2016 [Neil Kistner](//github.com/wyze)
 
 Released under the MIT license. See [license](license) for details.
 
