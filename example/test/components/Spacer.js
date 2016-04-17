@@ -1,10 +1,10 @@
-import Spacer from '../../src/components/Spacer.jsx';
-import render from '../_render';
-import test from 'ava';
+import { shallow } from 'enzyme'
+import React from 'react'
+import Spacer from '../../src/components/Spacer.jsx'
+import test from 'ava'
 
-test('renders', async t => {
-  const { same } = t;
-  const component = render(Spacer);
+test('renders', t => {
+  const component = shallow(<Spacer />)
 
-  same(component.props.style, { height: '1em' });
-});
+  t.deepEqual(component.prop('style'), { height: '1em' })
+})

@@ -1,11 +1,10 @@
-import createStore from '../../src/redux';
-import test from 'ava';
+import createStore from '../../src/redux'
+import test from 'ava'
 
-test('creates a store', async t => {
-  const { is } = t;
-  const { dispatch, subscribe, getState } = createStore();
+test('creates a store', t => {
+  const { dispatch, subscribe, getState } = createStore()
 
-  is(typeof dispatch, 'function');
-  is(typeof subscribe, 'function');
-  is(typeof getState, 'function');
-});
+  t.is(typeof dispatch, 'function')
+  t.is(typeof subscribe, 'function')
+  t.is(typeof getState, 'function')
+})

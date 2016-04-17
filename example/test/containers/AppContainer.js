@@ -1,24 +1,23 @@
-import render from '../_render';
-import test from 'ava';
 import {
   AppContainer,
   mapStateToProps,
-} from '../../src/containers/AppContainer.jsx';
+} from '../../src/containers/AppContainer.jsx'
+import { shallow } from 'enzyme'
+import React from 'react'
+import test from 'ava'
 
-test('renders', async t => {
-  const { is, ok } = t;
-  const component = render(AppContainer, { value: 'Hi!' });
+test('renders', t => {
+  const component = shallow(<AppContainer value="Hi!" />)
 
-  ok(component.subTree('Title'));
-  ok(component.subTree('Spacer'));
-  ok(component.subTree('Input'));
-  ok(component.subTree('Output'));
-  is(component.subTree('Output').props.value, 'Hi!');
-});
+  t.truthy(component.find('Title').length)
+  t.truthy(component.find('Spacer').length)
+  t.truthy(component.find('Input').length)
+  t.truthy(component.find('Output').length)
+  t.is(component.find('Output').prop('value'), 'Hi!')
+})
 
-test('maps state to props', async t => {
-  const { same } = t;
-  const props = mapStateToProps({ example: 'Something.' });
+test('maps state to props', t => {
+  const props = mapStateToProps({ example: 'Something.' })
 
-  same(props, { value: 'Something.' });
-});
+  t.deepEqual(props, { value: 'Something.' })
+})

@@ -1,10 +1,10 @@
-import Output from '../../src/components/Output.jsx';
-import render from '../_render';
-import test from 'ava';
+import { shallow } from 'enzyme'
+import Output from '../../src/components/Output.jsx'
+import React from 'react'
+import test from 'ava'
 
 test('renders a value', async t => {
-  const { is } = t;
-  const component = render(Output, { value: 'Hi!' });
+  const component = shallow(<Output value="Hi!" />)
 
-  is(component.textIn('span'), 'Hi!');
-});
+  t.is(component.find('span').text(), 'Hi!')
+})

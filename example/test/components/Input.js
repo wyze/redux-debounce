@@ -1,21 +1,21 @@
-import Input from '../../src/components/Input.jsx';
-import render from '../_render';
-import test from 'ava';
-import { spy } from 'sinon';
+import { shallow } from 'enzyme'
+import { spy } from 'sinon'
+import Input from '../../src/components/Input.jsx'
+import React from 'react'
+import test from 'ava'
 
-test('renders a value', async t => {
-  const { is } = t;
-  const component = render(Input, { value: 'Hi!' });
+test('renders a value', t => {
+  const component = shallow(<Input value="Hi!" />)
 
-  is(component.findNode('input').props.defaultValue, 'Hi!');
-});
+  t.is(component.find('input').prop('defaultValue'), 'Hi!')
+})
 
-test('fires onChange', async t => {
-  const { ok } = t;
-  const onChange = spy();
-  const component = render(Input, { onChange });
+test('fires onChange', t => {
+  const onChange = spy()
+  const component = shallow(<Input onChange={onChange} />)
 
-  component.fillField('input', 'Hello!');
+  component.find('input').simulate('change', 'Hello!')
 
-  ok(onChange.calledWith({ target: { value: 'Hello!' } }));
-});
+  t.truthy(onChange.called)
+  t.truthy(onChange.calledWith('Hello!'))
+})

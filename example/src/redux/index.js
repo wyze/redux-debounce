@@ -1,6 +1,6 @@
-import createMiddleware from './middleware';
-import reducers from './reducers';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux'
+import createMiddleware from './middleware'
+import reducers from './reducers'
 
 export default () =>
-  applyMiddleware(...createMiddleware())(createStore)(reducers);
+  applyMiddleware(...createMiddleware())(createStore)(reducers)

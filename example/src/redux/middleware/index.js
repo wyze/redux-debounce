@@ -1,5 +1,5 @@
-import debounce from '../../../../src';
+import debounce from '../../../../src'
 
 export default () => ([
   debounce({ simple: 500 }),
-]);
+])

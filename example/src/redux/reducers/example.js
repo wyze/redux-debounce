@@ -1,15 +1,15 @@
-const INPUT = 'redux-debounce-example/example/INPUT';
+const INPUT = 'redux-debounce-example/example/INPUT'
 
-const initialState = '';
+const initialState = ''
 
 const reducer = ( state = initialState, action = {} ) => {
   switch ( action.type ) {
     case INPUT:
-      return action.payload;
+      return action.payload
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const input = payload => ({
   meta: {
@@ -17,6 +17,6 @@ export const input = payload => ({
   },
   payload,
   type: INPUT,
-});
+})
 
-export default reducer;
+export default reducer

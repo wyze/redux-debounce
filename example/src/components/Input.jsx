@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react'
 
 const Input = ({ onChange, value }) => (
   <div>
@@ -8,6 +8,11 @@ const Input = ({ onChange, value }) => (
       onChange={onChange}
     />
   </div>
-);
+)
 
-export default Input;
+Input.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+}
+
+export default Input
