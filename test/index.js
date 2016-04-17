@@ -1,116 +1,107 @@
-import test from 'ava';
-import debounceMiddleware from '../src';
-import { spy } from 'sinon';
+import { spy } from 'sinon'
+import debounceMiddleware from '../src'
+import test from 'ava'
 
 const config = {
   simple: 100,
   nowait: {},
   maxwait: { wait: 100, maxWait: 150 },
-};
-const nextHandler = debounceMiddleware(config)();
+}
+const nextHandler = debounceMiddleware(config)()
 
-test('returns a function to handle next', async t => {
-  const { is } = t;
+test('returns a function to handle next', t => {
+  t.is(typeof nextHandler, 'function')
+  t.is(nextHandler.length, 1)
+})
 
-  is(typeof nextHandler, 'function');
-  is(nextHandler.length, 1);
-});
+test('handle next returns function to handle action', t => {
+  const actionHandler = nextHandler(spy())
 
-test('handle next returns function to handle action', async t => {
-  const { is } = t;
-  const actionHandler = nextHandler(spy());
+  t.is(typeof actionHandler, 'function')
+  t.is(actionHandler.length, 1)
+})
 
-  is(typeof actionHandler, 'function');
-  is(actionHandler.length, 1);
-});
+test('calls next when not flux standard action', t => {
+  const next = spy()
+  const actionHandler = nextHandler(next)
+  const action = { id: 1 }
 
-test('calls next when not flux standard action', async t => {
-  const { ok } = t;
-  const next = spy();
-  const actionHandler = nextHandler(next);
-  const action = { id: 1 };
+  actionHandler(action)
 
-  actionHandler(action);
-
-  ok(next.called);
-  ok(next.calledWith({ id: 1 }));
-});
+  t.truthy(next.called)
+  t.truthy(next.calledWith({ id: 1 }))
+})
 
 test.cb('calls debounce when config is passed a number', t => {
-  const { end, notOk, ok } = t;
-  const next = spy();
-  const actionHandler = nextHandler(next);
-  const action = { type: 'TEST', meta: { debounce: 'simple' } };
+  const next = spy()
+  const actionHandler = nextHandler(next)
+  const action = { type: 'TEST', meta: { debounce: 'simple' } }
 
-  actionHandler(action);
+  actionHandler(action)
 
-  notOk(next.called);
+  t.falsy(next.called)
 
   setTimeout(() => {
-    ok(next.called);
-    ok(next.calledWith(action));
-    end();
-  }, 100);
-});
+    t.truthy(next.called)
+    t.truthy(next.calledWith(action))
+    t.end()
+  }, 100)
+})
 
 test.cb('only calls debounced function once', t => {
-  const { end, is } = t;
-  const next = spy();
-  const actionHandler = nextHandler(next);
-  const action = { type: 'TEST', meta: { debounce: 'simple' } };
+  const next = spy()
+  const actionHandler = nextHandler(next)
+  const action = { type: 'TEST', meta: { debounce: 'simple' } }
 
-  actionHandler(action);
-  actionHandler(action);
-  actionHandler(action);
+  actionHandler(action)
+  actionHandler(action)
+  actionHandler(action)
 
   setTimeout(() => {
-    is(next.callCount, 1);
-    end();
-  }, 100);
-});
+    t.is(next.callCount, 1)
+    t.end()
+  }, 100)
+})
 
 test.cb('supports an object passed as config to debounce', t => {
-  const { end, ok } = t;
-  const next = spy();
-  const actionHandler = nextHandler(next);
-  const action = { type: 'TEST', meta: { debounce: 'nowait' } };
+  const next = spy()
+  const actionHandler = nextHandler(next)
+  const action = { type: 'TEST', meta: { debounce: 'nowait' } }
 
-  actionHandler(action);
+  actionHandler(action)
 
   setTimeout(() => {
-    ok(next.called);
-    end();
-  }, 100);
-});
+    t.truthy(next.called)
+    t.end()
+  }, 100)
+})
 
 test.cb('supports other lodash.debounce options', t => {
-  const { end, notOk, ok } = t;
-  const next = spy();
-  const actionHandler = nextHandler(next);
-  const action = { type: 'TEST', meta: { debounce: 'maxwait' } };
+  const next = spy()
+  const actionHandler = nextHandler(next)
+  const action = { type: 'TEST', meta: { debounce: 'maxwait' } }
 
-  actionHandler(action);
-
-  setTimeout(() => {
-    actionHandler(action);
-  }, 75);
+  actionHandler(action)
 
   setTimeout(() => {
-    notOk(next.called);
-  }, 100);
+    actionHandler(action)
+  }, 75)
 
   setTimeout(() => {
-    ok(next.called);
-    end();
-  }, 150);
-});
+    t.falsy(next.called)
+  }, 100)
 
-test('skips debounce if not passed matching key', async t => {
-  const { ok } = t;
-  const next = spy();
-  const actionHandler = nextHandler(next);
-  const action = { type: 'TEST', meta: { debounce: 'nomatch' } };
+  setTimeout(() => {
+    t.truthy(next.called)
+    t.end()
+  }, 155)
+})
 
-  actionHandler(action);
-  ok(next.called);
-});
+test('skips debounce if not passed matching key', t => {
+  const next = spy()
+  const actionHandler = nextHandler(next)
+  const action = { type: 'TEST', meta: { debounce: 'nomatch' } }
+
+  actionHandler(action)
+  t.truthy(next.called)
+})
