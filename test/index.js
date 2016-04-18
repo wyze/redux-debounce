@@ -45,7 +45,7 @@ test.cb('calls debounce when config is passed a number', t => {
     t.truthy(next.called)
     t.truthy(next.calledWith(action))
     t.end()
-  }, 100)
+  }, 105)
 })
 
 test.cb('only calls debounced function once', t => {
@@ -60,7 +60,7 @@ test.cb('only calls debounced function once', t => {
   setTimeout(() => {
     t.is(next.callCount, 1)
     t.end()
-  }, 100)
+  }, 105)
 })
 
 test.cb('supports an object passed as config to debounce', t => {
