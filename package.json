@@ -54,8 +54,8 @@
   ],
   "dependencies": {
     "flux-standard-action": "^0.6.1",
-    "lodash.debounce": "^4.0.6",
-    "lodash.mapvalues": "^4.3.0"
+    "lodash.debounce": "^4.0.7",
+    "lodash.mapvalues": "^4.5.1"
   },
   "devDependencies": {
     "ava": "^0.14.0",
