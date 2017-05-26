@@ -28,7 +28,7 @@ const config = {
 
 const debouncer = createDebounce(config)
 const logger = createLogger()
-const createMiddleware = applyMiddleware(thunk, debouncer, promise, thunk)
+const createMiddleware = applyMiddleware(thunk, debouncer, promise, logger)
 const store = createMiddleware(createStore)(reducer)
 
 const debounceAction = () => ({
