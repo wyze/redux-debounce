@@ -9,7 +9,7 @@
 ## Installation
 
 ```sh
-$ npm install --save-dev redux-debounce
+$ npm install --save redux-debounce
 ```
 
 ## Usage
